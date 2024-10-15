@@ -88,12 +88,19 @@ const LoginSignup = () => {
                 <label for="password" className="form-label">
                   Enter Password
                 </label>
-                <input
-                  {...register("password")}
+                 <input
+                  {...register("password", {
+                    pattern: /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/
+                  })}
                   type="password"
-                  className="form-control"
+                  className={
+                    errors.password ? "form-control is-invalid" : "form-control"
+                  }
                   id="password"
                 />
+                {errors?.password?.type === "pattern" && (
+                  <span className="d-block text-danger">Must be Lowercase, Uppercase, Number and Special Character</span>
+                )}
               </div>
               <div className="mb-3">
                 <label for="repassword" className="form-label">
